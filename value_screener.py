@@ -28,6 +28,9 @@ def main():
         value_metrics = pd.read_csv('value_metrics.csv')
         performance_metrics = pd.read_csv('performance_metrics.csv')
         
+        # Ensure consistent column naming
+        value_metrics = value_metrics.rename(columns={'Symbol': 'Ticker'})
+        
         # Apply Buffett criteria
         scores = buffett_criteria(value_metrics)
         
@@ -35,7 +38,8 @@ def main():
         final_analysis = pd.merge(
             value_metrics,
             performance_metrics,
-            on='Ticker'
+            on='Ticker',
+            how='inner'  # Only keep stocks present in both datasets
         )
         final_analysis['Buffett Score'] = scores['Total Score']
         
