@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Run tests
+pytest
+
+# Run linting
+pylint value_analysis tests examples
+
+# Run code formatting
+black value_analysis tests examples
